@@ -1,13 +1,13 @@
 import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class VideoGameBase(BaseModel):
-    name: str
+    name: str = Field(..., min_length=1)
     release_date: datetime.date
-    studio: str
-    ratings: int
+    studio: str = Field(..., min_length=1)
+    ratings: int = Field(..., gt=0)
 
 
 class VideoGameCreate(VideoGameBase):
