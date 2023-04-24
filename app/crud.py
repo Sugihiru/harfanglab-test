@@ -27,3 +27,13 @@ def get_videogame(db: Session, videogame_id: int):
 
 def get_videogames(db: Session):
     return db.query(vg_model.VideoGame).all()
+
+
+def delete_videogame(db: Session, videogame_id: int):
+    obj = (
+        db.query(vg_model.VideoGame)
+        .filter(vg_model.VideoGame.id == videogame_id)
+        .first()
+    )
+    db.delete(obj)
+    db.commit()

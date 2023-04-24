@@ -24,7 +24,10 @@ def get_videogames(db: Session = Depends(database.get_db)):
 
 @router.get("/{videogame_id}", response_model=vg_schema.VideoGame)
 def get_videogame(videogame_id: int, db: Session = Depends(database.get_db)):
-    return crud.get_videogame(db, videogame_id)
+    game = crud.get_videogame(db, videogame_id)
+    if not game:
+        raise HTTPException(status_code=404, detail="Video game not found")
+    return game
 
 
 @router.post("", response_model=vg_schema.VideoGame, include_in_schema=False)
