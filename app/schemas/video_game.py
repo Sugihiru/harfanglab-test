@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 class VideoGameBase(BaseModel):
     name: str
-    release_date: datetime.datetime
+    release_date: datetime.date
     studio: str
     ratings: int
 

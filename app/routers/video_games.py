@@ -16,11 +16,10 @@ router = APIRouter(
 bearer_auth = HTTPBearer()
 
 
-@router.get("", include_in_schema=False)
-@router.get("/")
-def get_videogames():
-    print("get_videogames")
-    return "get_videogames"
+@router.get("", response_model=list[vg_schema.VideoGame], include_in_schema=False)
+@router.get("/", response_model=list[vg_schema.VideoGame])
+def get_videogames(db: Session = Depends(database.get_db)):
+    return crud.get_videogames(db)
 
 
 @router.post("", response_model=vg_schema.VideoGame, include_in_schema=False)
