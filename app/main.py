@@ -7,6 +7,7 @@ from fastapi.logger import logger
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from app import database
 from app.routers import video_games
 from app.tags_metadata import tags_metadata
 
@@ -18,6 +19,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["Content-Type", "Authorization"],
 )
+
+database.Base.metadata.create_all(bind=database.engine)
 
 # Setup logging
 # setting = Settings()
