@@ -18,8 +18,11 @@ def create_videogame(db: Session, game: vg_schema.VideoGameCreate):
 
 
 def get_videogame(db: Session, videogame_id: int):
-    return db.query(vg_model.VideoGame).first()
-    # return db.query(video_game.VideoGame).filter(models.User.id == user_id).first()
+    return (
+        db.query(vg_model.VideoGame)
+        .filter(vg_model.VideoGame.id == videogame_id)
+        .first()
+    )
 
 
 def get_videogames(db: Session):

@@ -22,6 +22,11 @@ def get_videogames(db: Session = Depends(database.get_db)):
     return crud.get_videogames(db)
 
 
+@router.get("/{videogame_id}", response_model=vg_schema.VideoGame)
+def get_videogame(videogame_id: int, db: Session = Depends(database.get_db)):
+    return crud.get_videogame(db, videogame_id)
+
+
 @router.post("", response_model=vg_schema.VideoGame, include_in_schema=False)
 @router.post("/", response_model=vg_schema.VideoGame)
 def create_videogame(
